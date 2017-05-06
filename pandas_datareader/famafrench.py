@@ -1,7 +1,8 @@
 import tempfile
 import re
 import datetime as dt
-from pandas.io.common import ZipFile
+#from pandas.io.common import ZipFile
+import zipfile
 from pandas.compat import lmap, StringIO
 from pandas import read_csv, to_datetime
 
@@ -61,7 +62,8 @@ class FamaFrenchReader(_BaseReader):
         with tempfile.TemporaryFile() as tmpf:
             tmpf.write(raw)
 
-            with ZipFile(tmpf, 'r') as zf:
+            #with ZipFile(tmpf, 'r') as zf:
+            with zipfile.ZipFile(zipf, 'r') as zf:
                 data = zf.open(zf.namelist()[0]).read().decode()
 
         return data
